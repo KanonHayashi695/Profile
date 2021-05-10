@@ -1,0 +1,489 @@
+@charset "UTF-8";
+
+
+a {
+  text-decoration: none;
+}
+
+body{
+    vertical-align:middle; 
+    padding: 100px 0;
+	text-align:center;
+	margin-right:auto;
+	margin-left:auto;
+    font-family:"Hiragino Kaku Gothic ProN";
+}
+
+body{
+	animation: bgchange 20s ease infinite;/*変化の時間を変更したい場合は20sの部分を好きな時間に変更*/
+}
+
+@keyframes bgchange{
+      0%   {background:#DBEDF0;}/*変化させたい色*/
+      25%  {background:#8DABC5;}/*変化させたい色*/
+      50%  {background:#7FC1D0;}/*変化させたい色*/
+      75%  {background:#4699CA;}/*変化させたい色*/
+      90%  {background:#7FC1D0;}/*変化させたい色*/
+      100% {background:#8DABC5;}/*変化させたい色*/
+ }
+
+#wrapper{
+/*描画されるテキストを中央寄せにする*/
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#particle{
+    width:100%;
+	height: 100vh;
+	vertical-align: bottom;/*canvasタグ下に余白が生まれるのを防ぐ*/
+}
+
+p{
+    margin: 0 0 10px 0;
+}
+
+.topimg{
+	height:300px;
+}
+
+.top-wrapper h1 {
+  opacity: 0.7;
+  font-size: 45px;
+  letter-spacing: 5px;
+}
+
+/* ボタン共通設定 */
+.btn04 {
+    /*線の基点とするためrelativeを指定*/
+	position: relative;
+    /*ボタンの形状*/
+	display:inline-block;
+    padding: 10px 30px;
+	color:#333;
+	border:1px solid #ccc;
+    text-decoration: none;
+    outline: none;
+    /*はみ出す背景色を隠す*/
+ 	overflow: hidden;
+ 	margin-top:20px;
+}
+
+/*hoverした際のボタンの形状*/
+.btn04:hover {
+	color:#ccc;
+	border-color: transparent;
+    /*色の変化を遅らせる*/
+	transition-delay: .6s;
+}
+
+.btn04:active {
+	background-color: #E44191;
+}
+
+/*線の設定*/
+.btn04 span{
+    display: block;
+    z-index: 2;
+}
+
+/*== 線から塗に変化（下から上）*/
+
+/*線の設定*/
+.borderbottom span::before,
+.borderbottom span::after {
+    content: '';
+    /*絶対配置で線の位置を決める*/
+    position: absolute;
+    width:1px;
+    height: 0;
+    /*線の形状*/
+    background: #333;
+    /*アニメーションの設定*/
+	transition: all .3s;
+}
+
+/*左線*/
+.borderbottom span::before {
+    left:0;
+    bottom:0;
+}
+
+/*右線*/
+.borderbottom span::after {
+    right:0;
+    bottom:0;
+}
+
+/*hoverをすると線が伸びる*/
+.borderbottom:hover span::before,
+.borderbottom:hover span::after {
+    height: 100%;
+}
+
+/*背景の設定*/
+.borderbottom::before{
+	content: '';
+    /*絶対配置で線の位置を決める*/
+	position: absolute;
+	left: 0;
+    bottom:0;
+	z-index: -1;
+    /*背景の形状*/
+	width: 100%;
+	height: 0;
+	background:#333;
+    /*アニメーションの設定*/
+	transition: all .3s;
+}
+
+/*hoverをすると背景が伸びる*/
+.borderbottom:hover::before{
+	height: 100%;
+    /*0.4秒遅れてアニメーション*/
+	transition-delay: .4s;
+}
+
+
+header{
+  background-color:rgba(34,49,52,0.9);
+  height:65px;
+  width:100%;
+  position:fixed;
+  z-index:10;
+  top:0;
+}
+
+.logo{
+  width:124px;
+}
+
+.header-left{
+  float:left;
+}
+
+table{
+	margin:0 auto;
+}
+
+/*==================================================
+スライダーのためのcss
+===================================*/
+.slider {/*横幅94%で左右に余白を持たせて中央寄せ*/
+   width:94%;
+    margin:0 auto;
+}
+
+.slider img {
+    /*スライダー内の画像を横幅100%に*/
+    width:100%;
+}
+
+/*slickのJSで書かれるタグ内、スライド左右の余白調整*/
+
+.slider .slick-slide {
+    margin:0 10px;
+}
+
+/*矢印の設定*/
+
+/*戻る、次へ矢印の位置*/
+.slick-prev, 
+.slick-next {
+    position: absolute;/*絶対配置にする*/
+    top: 42%;
+    cursor: pointer;/*マウスカーソルを指マークに*/
+    outline: none;/*クリックをしたら出てくる枠線を消す*/
+    border-top: 2px solid #666;/*矢印の色*/
+    border-right: 2px solid #666;/*矢印の色*/
+    height: 15px;
+    width: 15px;
+}
+
+.slick-prev {/*戻る矢印の位置と形状*/
+    left: -1.5%;
+    transform: rotate(-135deg);
+}
+
+.slick-next {/*次へ矢印の位置と形状*/
+    right: -1.5%;
+    transform: rotate(45deg);
+}
+
+/*ドットナビゲーションの設定*/
+
+.slick-dots {
+    text-align:center;
+	margin:20px 0 0 0;
+}
+
+.slick-dots li {
+    display:inline-block;
+	margin:0 5px;
+}
+
+.slick-dots button {
+    color: transparent;
+    outline: none;
+    width:8px;/*ドットボタンのサイズ*/
+    height:8px;/*ドットボタンのサイズ*/
+    display:block;
+    border-radius:50%;
+    background:#ccc;/*ドットボタンの色*/
+}
+
+.slick-dots .slick-active button{
+    background:#333;/*ドットボタンの現在地表示の色*/
+}
+
+
+td{
+	color:white;
+	
+}
+
+.pet{
+	height:auto;
+}
+
+/*==================================================
+　5-2-1 3本線が×に
+===================================*/
+/*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
+
+
+/*ボタン内側*/
+
+
+/*==================================================
+ギャラリーのためのcss
+===================================*/
+.gallery {
+	columns: 4; /*段組みの数*/
+	padding: 0 15px; /*ギャラリー左右に余白をつける*/
+	margin: 0;
+}
+
+.gallery li {
+    margin-bottom: 20px;/*各画像下に余白をつける*/
+list-style:none;
+}
+
+/*ギャラリー内のイメージは横幅100%にする*/
+.gallery img{
+	width:100%;
+	height:auto;
+	vertical-align: bottom;/*画像の下にできる余白を削除*/}
+
+/*　横幅900px以下の段組み設定　*/
+@media only screen and (max-width: 900px) {
+	.gallery{
+	columns:3;
+	}	
+}
+
+@media only screen and (max-width: 768px) {
+	.gallery{
+	columns: 2;
+	}	
+}
+
+/*========= ナビゲーションのためのCSS ===============*/
+
+#g-nav{
+    /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+    position:fixed;
+    z-index: 999;
+    /*ナビのスタート位置と形状*/
+	top:-120%;
+    left:0;
+	width:100%;
+    height: 100vh;/*ナビの高さ*/
+	background:#B1C7D4;
+    /*動き*/
+	transition: all 0.6s;
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive{
+    top: 0;
+}
+
+/*ナビゲーションの縦スクロール*/
+#g-nav.panelactive #g-nav-list{
+    /*ナビの数が増えた場合縦スクロール*/
+    position: fixed;
+    z-index: 999; 
+    width: 100%;
+    height: 100vh;/*表示する高さ*/
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/*ナビゲーション*/
+#g-nav ul {
+    /*ナビゲーション天地中央揃え*/
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+/*リストのレイアウト設定*/
+
+#g-nav li{
+	list-style: none;
+    text-align: center; 
+}
+
+#g-nav li a{
+	color: #3F83A6;
+	text-decoration: none;
+	padding:10px;
+	display: block;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-weight: bold;
+}
+
+#g-nav li a:hover{
+	color:#d83473;
+}
+
+/*========= ボタンのためのCSS ===============*/
+.openbtn1{
+	position:fixed;
+    z-index: 9999;/*ボタンを最前面に*/
+	top:10px;
+	right: 10px;
+	cursor: pointer;
+    width: 50px;
+    height:50px;
+}
+	
+/*×に変化*/	
+.openbtn1 span{
+    display: inline-block;
+    transition: all .4s;
+    position: absolute;
+    left: 14px;
+    height: 3px;
+    border-radius: 2px;
+	background-color: #666;
+  	width: 45%;
+  }
+  
+.openbtn1 span:nth-of-type(1) {
+	top:15px;	
+}
+
+.openbtn1 span:nth-of-type(2) {
+	top:23px;
+}
+
+.openbtn1 span:nth-of-type(3) {
+	top:31px;
+}
+
+.openbtn1.active span:nth-of-type(1) {
+    top: 18px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+}
+
+.openbtn1.active span:nth-of-type(2) {
+	opacity: 0;
+}
+
+.openbtn1.active span:nth-of-type(3){
+    top: 30px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+}
+
+ul#polaroids a:after {
+  content: attr(title);
+  font-family: 'Hina2ndGrade', sans-serif;
+  color: #333;
+}
+
+ul#polaroids li a {
+  position: relative;
+  float: left;
+  padding: 10px 10px 20px;
+  background-color: white;
+  -moz-box-shadow: 0 4px 10px #333;
+  -webkit-box-shadow: 0 4px 10px #333;
+  box-shadow: 0 4px 10px #333;
+  -webkit-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+  transform: rotate(5deg);
+}
+
+.pola{
+	widrh:300px;
+	height:200px;
+}
+
+ul#polaroids li a {
+  -webkit-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+  transform: rotate(5deg);
+}
+
+ul#polaroids li:nth-child(2n+1) a {
+  -webkit-transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+  transform: rotate(-10deg);
+  position: relative;
+  top: -5px;
+}
+
+ul#polaroids li:nth-child(3) a {
+  -webkit-transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+  transform: rotate(30deg);
+  position: relative;
+  top: -10px;
+  left: 30px;
+}
+
+ul#polaroids li:nth-child(4) a {
+  position: relative;
+  top: -10px;
+  left: 10px;
+}
+
+ul{
+	list-style:none;
+}
+
+.polaro{
+	margin-top:150px;
+
+}
+
+
+
+.like{
+	line-height:30px;
+}
+
+table{
+	margin-bottom:100px;
+}
+
+.headList{
+	color:#003366;
+	margin:50px 0;
+	text-align:center;
+}
+
+#topPro{
+	border-radius:7px;
+}
+
